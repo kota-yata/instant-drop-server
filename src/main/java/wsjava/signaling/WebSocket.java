@@ -8,6 +8,7 @@ import javax.websocket.server.ServerEndpoint;
 import org.springframework.stereotype.Component;
 
 import wsjava.signaling.types.MessageObject;
+import wsjava.signaling.utils.CurrentTime;
 import wsjava.signaling.utils.MessageDecoder;
 import wsjava.signaling.utils.MessageEncoder;
 
@@ -31,30 +32,33 @@ public class WebSocket {
   public void OnOpen(Session session) {
     WebSocket.peerSessions.add(session);
     WebSocket.peerIds.add(session.getId());
-    this.send(session.getId(), String.format("Connection established (ID : %s)", session.getId()), session);
-    String peerIdsLog = String.format("%s online peers detected", peerIds.size());
-    this.send(peerIds, peerIdsLog, session);
-    System.out.println(String.format("Session opened: %s", session.getId()));
-    System.out.println(peerIdsLog);
+    this.send(session.getId(), String.format("Connected to signaling server (ID : %s)", session.getId()), session);
+    this.broadcast(peerIds);
   }
 
   @OnMessage
   public void OnMessage(String txt, Session session){
     System.out.println(String.format("Text message received from: %s", session.getId()));
-    this.send(session.getId(), String.format("Connection established. Your ID is %s", session.getId()), session);
   }
 
   @OnClose
   public void OnClose(Session session) {
-    String res = String.format("Session Closed: %s", session.getId());
     WebSocket.peerSessions.remove(session);
     WebSocket.peerIds.remove(session.getId());
-    System.out.println(res);
+    this.broadcast(peerIds);
+  }
+
+  public void broadcast(ArrayList<String> peers) {
+    String broadcastLog = String.format("Peer list updated (%s peers online)", peers.size());
+    for (Session s: WebSocket.peerSessions) {
+      this.send(peers, broadcastLog, s);
+    }
   }
 
   public void send(String txt, String log, Session session) {
     try {
-      MessageObject res = new MessageObject(txt, log);
+      String timeStamp = CurrentTime.get();
+      MessageObject res = new MessageObject(txt, log, timeStamp);
       session.getBasicRemote().sendObject(res);
     } catch (IOException | EncodeException err) {
       err.printStackTrace();
@@ -62,7 +66,8 @@ public class WebSocket {
   }
   public void send(ArrayList<String> peers, String log, Session session) {
     try {
-      MessageObject res = new MessageObject(peers, log);
+      String timeStamp = CurrentTime.get();
+      MessageObject res = new MessageObject(peers, log, timeStamp);
       session.getBasicRemote().sendObject(res);
     } catch (IOException | EncodeException err) {
       err.printStackTrace();

@@ -23,18 +23,21 @@ public class MessageObject {
   public ArrayList<String> listData;
   public String stringData;
   public String log;
+  public String timeStamp;
 
   public MessageObject() {}
 
-  public MessageObject(String stringData, String log) {
+  public MessageObject(String stringData, String log, String timeStamp) {
     this.dataType = DataType.String;
     this.stringData = stringData;
     this.log = log;
+    this.timeStamp = timeStamp;
   }
 
-  public MessageObject(ArrayList<String> listData, String log) {
+  public MessageObject(ArrayList<String> listData, String log, String timeStamp) {
     this.dataType = DataType.List;
     this.listData = listData;
     this.log = log;
+    this.timeStamp = timeStamp;
   }
 }

@@ -27,6 +27,9 @@ public class MessageObjectTypeAdapter extends TypeAdapter<MessageObject> {
         case "log":
           messageObject.log = in.nextString();
           break;
+        case "timeStamp":
+          messageObject.timeStamp = in.nextString();
+          break;
       }
     }
     in.endObject();
@@ -45,6 +48,7 @@ public class MessageObjectTypeAdapter extends TypeAdapter<MessageObject> {
       out.name("stringData").value(messageObject.stringData);
     }
     out.name("log").value(messageObject.log);
+    out.name("timeStamp").value(messageObject.timeStamp);
     out.endObject();
   }
 }
