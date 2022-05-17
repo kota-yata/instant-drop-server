@@ -2,20 +2,8 @@ package wsjava.signaling.types;
 
 import java.util.ArrayList;
 
-import javax.xml.bind.TypeConstraintException;
-
 class Data<T> {
   T data;
-}
-
-enum DataType {
-  String, List;
-  public static DataType toDataType(String subjectString) {
-    for (DataType dataType : values()) {
-      if (dataType.name().equals(subjectString)) return dataType;
-    }
-    throw new TypeConstraintException("The string is incompatible to DataType");
-  }
 }
 
 public class MessageObject {
@@ -27,15 +15,15 @@ public class MessageObject {
 
   public MessageObject() {}
 
-  public MessageObject(String stringData, String log, String timeStamp) {
-    this.dataType = DataType.String;
+  public MessageObject(DataType dataType, String stringData, String log, String timeStamp) {
+    this.dataType = dataType;
     this.stringData = stringData;
     this.log = log;
     this.timeStamp = timeStamp;
   }
 
-  public MessageObject(ArrayList<String> listData, String log, String timeStamp) {
-    this.dataType = DataType.List;
+  public MessageObject(DataType dataType, ArrayList<String> listData, String log, String timeStamp) {
+    this.dataType = dataType;
     this.listData = listData;
     this.log = log;
     this.timeStamp = timeStamp;

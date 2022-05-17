@@ -42,9 +42,9 @@ public class MessageObjectTypeAdapter extends TypeAdapter<MessageObject> {
     out.beginObject();
     DataType dataType = messageObject.dataType;
     out.name("dataType").value(dataType.toString());
-    if (dataType.equals(DataType.List)) {
+    if (dataType.equals(DataType.Peers)) {
       out.name("listData").value(String.join(",", messageObject.listData));
-    } else if (dataType.equals(DataType.String)) {
+    } else if (dataType.equals(DataType.LocalId)) {
       out.name("stringData").value(messageObject.stringData);
     }
     out.name("log").value(messageObject.log);

@@ -8,6 +8,7 @@ import javax.websocket.server.ServerEndpoint;
 import org.springframework.stereotype.Component;
 
 import wsjava.signaling.types.MessageObject;
+import wsjava.signaling.types.DataType;
 import wsjava.signaling.utils.CurrentTime;
 import wsjava.signaling.utils.MessageDecoder;
 import wsjava.signaling.utils.MessageEncoder;
@@ -32,8 +33,8 @@ public class WebSocket {
   public void OnOpen(Session session) {
     WebSocket.peerSessions.add(session);
     WebSocket.peerIds.add(session.getId());
-    this.send(session.getId(), String.format("Connected to signaling server (ID : %s)", session.getId()), session);
-    this.broadcast(peerIds);
+    this.send(DataType.LocalId, session.getId(), String.format("Connected to Server (ID : %s)", session.getId()), session);
+    this.broadcast(DataType.Peers, peerIds);
   }
 
   @OnMessage
@@ -45,29 +46,35 @@ public class WebSocket {
   public void OnClose(Session session) {
     WebSocket.peerSessions.remove(session);
     WebSocket.peerIds.remove(session.getId());
-    this.broadcast(peerIds);
+    this.broadcast(DataType.Peers, peerIds);
   }
 
-  public void broadcast(ArrayList<String> peers) {
-    String broadcastLog = String.format("Peer list updated (%s peers online)", peers.size());
+  public void broadcast(DataType dataType, String txt) {
+    String broadcastLog = String.format("String data broadcasted: ", txt);
     for (Session s: WebSocket.peerSessions) {
-      this.send(peers, broadcastLog, s);
+      this.send(dataType, txt, broadcastLog, s);
+    }
+  }
+  public void broadcast(DataType dataType, ArrayList<String> list) {
+    String broadcastLog = String.format("Peer list updated (%s peers online)", list.size());
+    for (Session s: WebSocket.peerSessions) {
+      this.send(dataType, list, broadcastLog, s);
     }
   }
 
-  public void send(String txt, String log, Session session) {
+  public void send(DataType dataType, String txt, String log, Session session) {
     try {
       String timeStamp = CurrentTime.get();
-      MessageObject res = new MessageObject(txt, log, timeStamp);
+      MessageObject res = new MessageObject(dataType, txt, log, timeStamp);
       session.getBasicRemote().sendObject(res);
     } catch (IOException | EncodeException err) {
       err.printStackTrace();
     }
   }
-  public void send(ArrayList<String> peers, String log, Session session) {
+  public void send(DataType dataType, ArrayList<String> peers, String log, Session session) {
     try {
       String timeStamp = CurrentTime.get();
-      MessageObject res = new MessageObject(peers, log, timeStamp);
+      MessageObject res = new MessageObject(dataType, peers, log, timeStamp);
       session.getBasicRemote().sendObject(res);
     } catch (IOException | EncodeException err) {
       err.printStackTrace();
