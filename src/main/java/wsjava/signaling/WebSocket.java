@@ -5,9 +5,13 @@ import java.util.ArrayList;
 
 import javax.websocket.server.ServerEndpoint;
 
+import com.google.gson.Gson;
+
 import org.springframework.stereotype.Component;
 
 import wsjava.signaling.types.MessageObject;
+import wsjava.signaling.types.OfferObject;
+import wsjava.signaling.types.SessionList;
 import wsjava.signaling.types.DataType;
 import wsjava.signaling.utils.CurrentTime;
 import wsjava.signaling.utils.MessageDecoder;
@@ -26,20 +30,33 @@ import javax.websocket.Session;
   encoders = MessageEncoder.class
 )
 public class WebSocket {
-  public static ArrayList<Session> peerSessions = new ArrayList<>();
+  public static SessionList peerSessions = new SessionList();
   public static ArrayList<String> peerIds = new ArrayList<>();
+  private static Gson gson = new Gson();
 
   @OnOpen
   public void OnOpen(Session session) {
     WebSocket.peerSessions.add(session);
     WebSocket.peerIds.add(session.getId());
-    this.send(DataType.LocalId, session.getId(), String.format("Connected to Server (ID : %s)", session.getId()), session);
+    this.send(DataType.LocalId, session.getId(), String.format("Connected to the signaling server (ID : %s)", session.getId()), session);
     this.broadcast(DataType.Peers, peerIds);
   }
 
   @OnMessage
   public void OnMessage(String txt, Session session){
-    System.out.println(String.format("Text message received from: %s", session.getId()));
+    System.out.println(String.format("Text message received from peer ID: %s", session.getId()));
+    MessageObject messageObject = gson.fromJson(txt, MessageObject.class);
+    // Assume that message from peers can only be either an offer or an answer
+    OfferObject offerObject = gson.fromJson(messageObject.stringData, OfferObject.class);
+    this.handleSDP(messageObject.dataType, offerObject, messageObject.stringData);
+  }
+
+  private void handleSDP(DataType dataType, OfferObject offerObject, String stringified) {
+    Session destinationSession = WebSocket.peerSessions.findById(offerObject.to);
+    String log = String.format("%1$s received from peer ID: %2$s", dataType.toString(), offerObject.from);
+    System.out.println(stringified);
+    this.send(DataType.Offer, stringified, log, destinationSession);
+    System.out.println(String.format("Sent a text message to %s", destinationSession.getId()));
   }
 
   @OnClose
@@ -56,7 +73,7 @@ public class WebSocket {
     }
   }
   public void broadcast(DataType dataType, ArrayList<String> list) {
-    String broadcastLog = String.format("Peer list updated (%s peers online)", list.size());
+    String broadcastLog = String.format("Peers list updated (%s peers online)", list.size());
     for (Session s: WebSocket.peerSessions) {
       this.send(dataType, list, broadcastLog, s);
     }

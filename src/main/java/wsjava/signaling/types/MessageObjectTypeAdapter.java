@@ -13,7 +13,7 @@ public class MessageObjectTypeAdapter extends TypeAdapter<MessageObject> {
   public MessageObject read(final JsonReader in) throws IOException {
     final MessageObject messageObject = new MessageObject();
     in.beginObject();
-    while (in.hasNext()) {
+    while(in.hasNext()) {
       switch(in.nextName()) {
         case "dataType":
           messageObject.dataType = DataType.toDataType(in.nextString());
@@ -33,7 +33,6 @@ public class MessageObjectTypeAdapter extends TypeAdapter<MessageObject> {
       }
     }
     in.endObject();
-
     return messageObject;
   }
 
@@ -44,7 +43,7 @@ public class MessageObjectTypeAdapter extends TypeAdapter<MessageObject> {
     out.name("dataType").value(dataType.toString());
     if (dataType.equals(DataType.Peers)) {
       out.name("listData").value(String.join(",", messageObject.listData));
-    } else if (dataType.equals(DataType.LocalId)) {
+    } else {
       out.name("stringData").value(messageObject.stringData);
     }
     out.name("log").value(messageObject.log);
