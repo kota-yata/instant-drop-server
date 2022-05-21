@@ -6,10 +6,10 @@ import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 
-public class OfferObjectTypeAdapter extends TypeAdapter<OfferObject> {
+public class StringDataObjectTypeAdapter extends TypeAdapter<StringDataObject> {
   @Override
-  public OfferObject read(final JsonReader in) throws IOException {
-    final OfferObject offerObject = new OfferObject();
+  public StringDataObject read(final JsonReader in) throws IOException {
+    final StringDataObject offerObject = new StringDataObject();
     in.beginObject();
     while(in.hasNext()) {
       switch(in.nextName()) {
@@ -29,7 +29,7 @@ public class OfferObjectTypeAdapter extends TypeAdapter<OfferObject> {
   }
 
   @Override
-  public void write(final JsonWriter out, OfferObject offerObject) throws IOException {
+  public void write(final JsonWriter out, StringDataObject offerObject) throws IOException {
     out.beginObject();
     out.name("from").value(offerObject.from);
     out.name("to").value(offerObject.to);

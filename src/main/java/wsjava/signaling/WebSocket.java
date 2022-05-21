@@ -10,7 +10,7 @@ import com.google.gson.Gson;
 import org.springframework.stereotype.Component;
 
 import wsjava.signaling.types.MessageObject;
-import wsjava.signaling.types.OfferObject;
+import wsjava.signaling.types.StringDataObject;
 import wsjava.signaling.types.SessionList;
 import wsjava.signaling.types.DataType;
 import wsjava.signaling.utils.CurrentTime;
@@ -46,17 +46,15 @@ public class WebSocket {
   public void OnMessage(String txt, Session session){
     System.out.println(String.format("Text message received from peer ID: %s", session.getId()));
     MessageObject messageObject = gson.fromJson(txt, MessageObject.class);
-    // Assume that message from peers can only be either an offer or an answer
-    OfferObject offerObject = gson.fromJson(messageObject.stringData, OfferObject.class);
+    StringDataObject offerObject = gson.fromJson(messageObject.stringData, StringDataObject.class);
     this.handleSDP(messageObject.dataType, offerObject, messageObject.stringData);
   }
 
-  private void handleSDP(DataType dataType, OfferObject offerObject, String stringified) {
+  private void handleSDP(DataType dataType, StringDataObject offerObject, String stringified) {
     Session destinationSession = WebSocket.peerSessions.findById(offerObject.to);
     String log = String.format("%1$s received from peer ID: %2$s", dataType.toString(), offerObject.from);
-    System.out.println(stringified);
-    this.send(DataType.Offer, stringified, log, destinationSession);
-    System.out.println(String.format("Sent a text message to %s", destinationSession.getId()));
+    this.send(dataType, stringified, log, destinationSession);
+    System.out.println(String.format("Sent an SDP to %s", destinationSession.getId()));
   }
 
   @OnClose

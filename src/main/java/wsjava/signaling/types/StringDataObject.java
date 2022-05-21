@@ -1,13 +1,13 @@
 package wsjava.signaling.types;
 
-public class OfferObject {
+public class StringDataObject {
   public String from;
   public String to;
   public String offer;
 
-  public OfferObject(){}
+  public StringDataObject(){}
 
-  public OfferObject(String from, String to, String offer) {
+  public StringDataObject(String from, String to, String offer) {
     this.from = from;
     this.to = to;
     this.offer = offer;
