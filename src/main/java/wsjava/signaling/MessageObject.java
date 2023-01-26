@@ -9,7 +9,7 @@ class Data<T> {
 public class MessageObject {
   public DataType dataType;
   public ArrayList<String> listData;
-  public String stringData;
+  public String stringData; // Stringified StringDataObject
   public String log;
   public String timeStamp;
 
