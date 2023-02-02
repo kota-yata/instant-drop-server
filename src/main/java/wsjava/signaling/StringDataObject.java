@@ -1,4 +1,4 @@
-package wsjava.signaling.types;
+package wsjava.signaling;
 
 public class StringDataObject {
   public String from;

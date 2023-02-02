@@ -6,8 +6,8 @@ import javax.websocket.EndpointConfig;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import wsjava.signaling.types.MessageObject;
-import wsjava.signaling.types.MessageObjectTypeAdapter;
+import wsjava.signaling.MessageObject;
+import wsjava.signaling.adapters.MessageObjectTypeAdapter;
 
 public class MessageEncoder implements Encoder.Text<MessageObject> {
   final GsonBuilder gsonBuilder = new GsonBuilder();

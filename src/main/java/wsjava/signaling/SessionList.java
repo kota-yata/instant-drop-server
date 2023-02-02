@@ -1,4 +1,4 @@
-package wsjava.signaling.types;
+package wsjava.signaling;
 
 import java.util.ArrayList;
 

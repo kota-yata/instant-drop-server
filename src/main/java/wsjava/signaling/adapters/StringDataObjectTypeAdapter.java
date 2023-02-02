@@ -1,10 +1,12 @@
-package wsjava.signaling.types;
+package wsjava.signaling.adapters;
 
 import java.io.IOException;
 
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
+
+import wsjava.signaling.StringDataObject;
 
 public class StringDataObjectTypeAdapter extends TypeAdapter<StringDataObject> {
   @Override
