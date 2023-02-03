@@ -20,56 +20,64 @@ public final class Wsjava {
   public enum DataType
       implements com.google.protobuf.ProtocolMessageEnum {
     /**
-     * <code>LocalId = 0;</code>
+     * <code>Default = 0;</code>
      */
-    LocalId(0),
+    Default(0),
     /**
-     * <code>Peers = 1;</code>
+     * <code>LocalId = 1;</code>
      */
-    Peers(1),
+    LocalId(1),
     /**
-     * <code>Offer = 2;</code>
+     * <code>Peers = 2;</code>
      */
-    Offer(2),
+    Peers(2),
     /**
-     * <code>Answer = 3;</code>
+     * <code>Offer = 3;</code>
      */
-    Answer(3),
+    Offer(3),
     /**
-     * <code>IceCandidate = 4;</code>
+     * <code>Answer = 4;</code>
      */
-    IceCandidate(4),
+    Answer(4),
     /**
-     * <code>Error = 5;</code>
+     * <code>IceCandidate = 5;</code>
      */
-    Error(5),
+    IceCandidate(5),
+    /**
+     * <code>Error = 6;</code>
+     */
+    Error(6),
     UNRECOGNIZED(-1),
     ;
 
     /**
-     * <code>LocalId = 0;</code>
+     * <code>Default = 0;</code>
      */
-    public static final int LocalId_VALUE = 0;
+    public static final int Default_VALUE = 0;
     /**
-     * <code>Peers = 1;</code>
+     * <code>LocalId = 1;</code>
      */
-    public static final int Peers_VALUE = 1;
+    public static final int LocalId_VALUE = 1;
     /**
-     * <code>Offer = 2;</code>
+     * <code>Peers = 2;</code>
      */
-    public static final int Offer_VALUE = 2;
+    public static final int Peers_VALUE = 2;
     /**
-     * <code>Answer = 3;</code>
+     * <code>Offer = 3;</code>
      */
-    public static final int Answer_VALUE = 3;
+    public static final int Offer_VALUE = 3;
     /**
-     * <code>IceCandidate = 4;</code>
+     * <code>Answer = 4;</code>
      */
-    public static final int IceCandidate_VALUE = 4;
+    public static final int Answer_VALUE = 4;
     /**
-     * <code>Error = 5;</code>
+     * <code>IceCandidate = 5;</code>
      */
-    public static final int Error_VALUE = 5;
+    public static final int IceCandidate_VALUE = 5;
+    /**
+     * <code>Error = 6;</code>
+     */
+    public static final int Error_VALUE = 6;
 
 
     public final int getNumber() {
@@ -96,12 +104,13 @@ public final class Wsjava {
      */
     public static DataType forNumber(int value) {
       switch (value) {
-        case 0: return LocalId;
-        case 1: return Peers;
-        case 2: return Offer;
-        case 3: return Answer;
-        case 4: return IceCandidate;
-        case 5: return Error;
+        case 0: return Default;
+        case 1: return LocalId;
+        case 2: return Peers;
+        case 3: return Offer;
+        case 4: return Answer;
+        case 5: return IceCandidate;
+        case 6: return Error;
         default: return null;
       }
     }
@@ -199,51 +208,51 @@ public final class Wsjava {
         getListDataBytes(int index);
 
     /**
-     * <code>.wsjava.signaling.pbsws.StringDataObject stringDataObject = 4;</code>
+     * <code>.wsjava.signaling.pbsws.StringDataObject stringDataObject = 3;</code>
      * @return Whether the stringDataObject field is set.
      */
     boolean hasStringDataObject();
     /**
-     * <code>.wsjava.signaling.pbsws.StringDataObject stringDataObject = 4;</code>
+     * <code>.wsjava.signaling.pbsws.StringDataObject stringDataObject = 3;</code>
      * @return The stringDataObject.
      */
     wsjava.signaling.pbsws.Wsjava.StringDataObject getStringDataObject();
     /**
-     * <code>.wsjava.signaling.pbsws.StringDataObject stringDataObject = 4;</code>
+     * <code>.wsjava.signaling.pbsws.StringDataObject stringDataObject = 3;</code>
      */
     wsjava.signaling.pbsws.Wsjava.StringDataObjectOrBuilder getStringDataObjectOrBuilder();
 
     /**
-     * <code>string stringData = 5;</code>
+     * <code>string stringData = 4;</code>
      * @return The stringData.
      */
     java.lang.String getStringData();
     /**
-     * <code>string stringData = 5;</code>
+     * <code>string stringData = 4;</code>
      * @return The bytes for stringData.
      */
     com.google.protobuf.ByteString
         getStringDataBytes();
 
     /**
-     * <code>string log = 6;</code>
+     * <code>string log = 5;</code>
      * @return The log.
      */
     java.lang.String getLog();
     /**
-     * <code>string log = 6;</code>
+     * <code>string log = 5;</code>
      * @return The bytes for log.
      */
     com.google.protobuf.ByteString
         getLogBytes();
 
     /**
-     * <code>string timeStamp = 7;</code>
+     * <code>string timeStamp = 6;</code>
      * @return The timeStamp.
      */
     java.lang.String getTimeStamp();
     /**
-     * <code>string timeStamp = 7;</code>
+     * <code>string timeStamp = 6;</code>
      * @return The bytes for timeStamp.
      */
     com.google.protobuf.ByteString
@@ -348,10 +357,10 @@ public final class Wsjava {
       return listData_.getByteString(index);
     }
 
-    public static final int STRINGDATAOBJECT_FIELD_NUMBER = 4;
+    public static final int STRINGDATAOBJECT_FIELD_NUMBER = 3;
     private wsjava.signaling.pbsws.Wsjava.StringDataObject stringDataObject_;
     /**
-     * <code>.wsjava.signaling.pbsws.StringDataObject stringDataObject = 4;</code>
+     * <code>.wsjava.signaling.pbsws.StringDataObject stringDataObject = 3;</code>
      * @return Whether the stringDataObject field is set.
      */
     @java.lang.Override
@@ -359,7 +368,7 @@ public final class Wsjava {
       return stringDataObject_ != null;
     }
     /**
-     * <code>.wsjava.signaling.pbsws.StringDataObject stringDataObject = 4;</code>
+     * <code>.wsjava.signaling.pbsws.StringDataObject stringDataObject = 3;</code>
      * @return The stringDataObject.
      */
     @java.lang.Override
@@ -367,18 +376,18 @@ public final class Wsjava {
       return stringDataObject_ == null ? wsjava.signaling.pbsws.Wsjava.StringDataObject.getDefaultInstance() : stringDataObject_;
     }
     /**
-     * <code>.wsjava.signaling.pbsws.StringDataObject stringDataObject = 4;</code>
+     * <code>.wsjava.signaling.pbsws.StringDataObject stringDataObject = 3;</code>
      */
     @java.lang.Override
     public wsjava.signaling.pbsws.Wsjava.StringDataObjectOrBuilder getStringDataObjectOrBuilder() {
       return stringDataObject_ == null ? wsjava.signaling.pbsws.Wsjava.StringDataObject.getDefaultInstance() : stringDataObject_;
     }
 
-    public static final int STRINGDATA_FIELD_NUMBER = 5;
+    public static final int STRINGDATA_FIELD_NUMBER = 4;
     @SuppressWarnings("serial")
     private volatile java.lang.Object stringData_ = "";
     /**
-     * <code>string stringData = 5;</code>
+     * <code>string stringData = 4;</code>
      * @return The stringData.
      */
     @java.lang.Override
@@ -395,7 +404,7 @@ public final class Wsjava {
       }
     }
     /**
-     * <code>string stringData = 5;</code>
+     * <code>string stringData = 4;</code>
      * @return The bytes for stringData.
      */
     @java.lang.Override
@@ -413,11 +422,11 @@ public final class Wsjava {
       }
     }
 
-    public static final int LOG_FIELD_NUMBER = 6;
+    public static final int LOG_FIELD_NUMBER = 5;
     @SuppressWarnings("serial")
     private volatile java.lang.Object log_ = "";
     /**
-     * <code>string log = 6;</code>
+     * <code>string log = 5;</code>
      * @return The log.
      */
     @java.lang.Override
@@ -434,7 +443,7 @@ public final class Wsjava {
       }
     }
     /**
-     * <code>string log = 6;</code>
+     * <code>string log = 5;</code>
      * @return The bytes for log.
      */
     @java.lang.Override
@@ -452,11 +461,11 @@ public final class Wsjava {
       }
     }
 
-    public static final int TIMESTAMP_FIELD_NUMBER = 7;
+    public static final int TIMESTAMP_FIELD_NUMBER = 6;
     @SuppressWarnings("serial")
     private volatile java.lang.Object timeStamp_ = "";
     /**
-     * <code>string timeStamp = 7;</code>
+     * <code>string timeStamp = 6;</code>
      * @return The timeStamp.
      */
     @java.lang.Override
@@ -473,7 +482,7 @@ public final class Wsjava {
       }
     }
     /**
-     * <code>string timeStamp = 7;</code>
+     * <code>string timeStamp = 6;</code>
      * @return The bytes for timeStamp.
      */
     @java.lang.Override
@@ -505,23 +514,23 @@ public final class Wsjava {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (dataType_ != wsjava.signaling.pbsws.Wsjava.DataType.LocalId.getNumber()) {
+      if (dataType_ != wsjava.signaling.pbsws.Wsjava.DataType.Default.getNumber()) {
         output.writeEnum(1, dataType_);
       }
       for (int i = 0; i < listData_.size(); i++) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 2, listData_.getRaw(i));
       }
       if (stringDataObject_ != null) {
-        output.writeMessage(4, getStringDataObject());
+        output.writeMessage(3, getStringDataObject());
       }
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(stringData_)) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 5, stringData_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 4, stringData_);
       }
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(log_)) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 6, log_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 5, log_);
       }
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(timeStamp_)) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 7, timeStamp_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 6, timeStamp_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -532,7 +541,7 @@ public final class Wsjava {
       if (size != -1) return size;
 
       size = 0;
-      if (dataType_ != wsjava.signaling.pbsws.Wsjava.DataType.LocalId.getNumber()) {
+      if (dataType_ != wsjava.signaling.pbsws.Wsjava.DataType.Default.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
           .computeEnumSize(1, dataType_);
       }
@@ -546,16 +555,16 @@ public final class Wsjava {
       }
       if (stringDataObject_ != null) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(4, getStringDataObject());
+          .computeMessageSize(3, getStringDataObject());
       }
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(stringData_)) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, stringData_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, stringData_);
       }
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(log_)) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, log_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, log_);
       }
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(timeStamp_)) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(7, timeStamp_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, timeStamp_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -926,28 +935,28 @@ public final class Wsjava {
                 listData_.add(s);
                 break;
               } // case 18
-              case 34: {
+              case 26: {
                 input.readMessage(
                     getStringDataObjectFieldBuilder().getBuilder(),
                     extensionRegistry);
                 bitField0_ |= 0x00000004;
                 break;
-              } // case 34
-              case 42: {
+              } // case 26
+              case 34: {
                 stringData_ = input.readStringRequireUtf8();
                 bitField0_ |= 0x00000008;
                 break;
-              } // case 42
-              case 50: {
+              } // case 34
+              case 42: {
                 log_ = input.readStringRequireUtf8();
                 bitField0_ |= 0x00000010;
                 break;
-              } // case 50
-              case 58: {
+              } // case 42
+              case 50: {
                 timeStamp_ = input.readStringRequireUtf8();
                 bitField0_ |= 0x00000020;
                 break;
-              } // case 58
+              } // case 50
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -1126,14 +1135,14 @@ public final class Wsjava {
       private com.google.protobuf.SingleFieldBuilderV3<
           wsjava.signaling.pbsws.Wsjava.StringDataObject, wsjava.signaling.pbsws.Wsjava.StringDataObject.Builder, wsjava.signaling.pbsws.Wsjava.StringDataObjectOrBuilder> stringDataObjectBuilder_;
       /**
-       * <code>.wsjava.signaling.pbsws.StringDataObject stringDataObject = 4;</code>
+       * <code>.wsjava.signaling.pbsws.StringDataObject stringDataObject = 3;</code>
        * @return Whether the stringDataObject field is set.
        */
       public boolean hasStringDataObject() {
         return ((bitField0_ & 0x00000004) != 0);
       }
       /**
-       * <code>.wsjava.signaling.pbsws.StringDataObject stringDataObject = 4;</code>
+       * <code>.wsjava.signaling.pbsws.StringDataObject stringDataObject = 3;</code>
        * @return The stringDataObject.
        */
       public wsjava.signaling.pbsws.Wsjava.StringDataObject getStringDataObject() {
@@ -1144,7 +1153,7 @@ public final class Wsjava {
         }
       }
       /**
-       * <code>.wsjava.signaling.pbsws.StringDataObject stringDataObject = 4;</code>
+       * <code>.wsjava.signaling.pbsws.StringDataObject stringDataObject = 3;</code>
        */
       public Builder setStringDataObject(wsjava.signaling.pbsws.Wsjava.StringDataObject value) {
         if (stringDataObjectBuilder_ == null) {
@@ -1160,7 +1169,7 @@ public final class Wsjava {
         return this;
       }
       /**
-       * <code>.wsjava.signaling.pbsws.StringDataObject stringDataObject = 4;</code>
+       * <code>.wsjava.signaling.pbsws.StringDataObject stringDataObject = 3;</code>
        */
       public Builder setStringDataObject(
           wsjava.signaling.pbsws.Wsjava.StringDataObject.Builder builderForValue) {
@@ -1174,7 +1183,7 @@ public final class Wsjava {
         return this;
       }
       /**
-       * <code>.wsjava.signaling.pbsws.StringDataObject stringDataObject = 4;</code>
+       * <code>.wsjava.signaling.pbsws.StringDataObject stringDataObject = 3;</code>
        */
       public Builder mergeStringDataObject(wsjava.signaling.pbsws.Wsjava.StringDataObject value) {
         if (stringDataObjectBuilder_ == null) {
@@ -1193,7 +1202,7 @@ public final class Wsjava {
         return this;
       }
       /**
-       * <code>.wsjava.signaling.pbsws.StringDataObject stringDataObject = 4;</code>
+       * <code>.wsjava.signaling.pbsws.StringDataObject stringDataObject = 3;</code>
        */
       public Builder clearStringDataObject() {
         bitField0_ = (bitField0_ & ~0x00000004);
@@ -1206,7 +1215,7 @@ public final class Wsjava {
         return this;
       }
       /**
-       * <code>.wsjava.signaling.pbsws.StringDataObject stringDataObject = 4;</code>
+       * <code>.wsjava.signaling.pbsws.StringDataObject stringDataObject = 3;</code>
        */
       public wsjava.signaling.pbsws.Wsjava.StringDataObject.Builder getStringDataObjectBuilder() {
         bitField0_ |= 0x00000004;
@@ -1214,7 +1223,7 @@ public final class Wsjava {
         return getStringDataObjectFieldBuilder().getBuilder();
       }
       /**
-       * <code>.wsjava.signaling.pbsws.StringDataObject stringDataObject = 4;</code>
+       * <code>.wsjava.signaling.pbsws.StringDataObject stringDataObject = 3;</code>
        */
       public wsjava.signaling.pbsws.Wsjava.StringDataObjectOrBuilder getStringDataObjectOrBuilder() {
         if (stringDataObjectBuilder_ != null) {
@@ -1225,7 +1234,7 @@ public final class Wsjava {
         }
       }
       /**
-       * <code>.wsjava.signaling.pbsws.StringDataObject stringDataObject = 4;</code>
+       * <code>.wsjava.signaling.pbsws.StringDataObject stringDataObject = 3;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           wsjava.signaling.pbsws.Wsjava.StringDataObject, wsjava.signaling.pbsws.Wsjava.StringDataObject.Builder, wsjava.signaling.pbsws.Wsjava.StringDataObjectOrBuilder> 
@@ -1243,7 +1252,7 @@ public final class Wsjava {
 
       private java.lang.Object stringData_ = "";
       /**
-       * <code>string stringData = 5;</code>
+       * <code>string stringData = 4;</code>
        * @return The stringData.
        */
       public java.lang.String getStringData() {
@@ -1259,7 +1268,7 @@ public final class Wsjava {
         }
       }
       /**
-       * <code>string stringData = 5;</code>
+       * <code>string stringData = 4;</code>
        * @return The bytes for stringData.
        */
       public com.google.protobuf.ByteString
@@ -1276,7 +1285,7 @@ public final class Wsjava {
         }
       }
       /**
-       * <code>string stringData = 5;</code>
+       * <code>string stringData = 4;</code>
        * @param value The stringData to set.
        * @return This builder for chaining.
        */
@@ -1289,7 +1298,7 @@ public final class Wsjava {
         return this;
       }
       /**
-       * <code>string stringData = 5;</code>
+       * <code>string stringData = 4;</code>
        * @return This builder for chaining.
        */
       public Builder clearStringData() {
@@ -1299,7 +1308,7 @@ public final class Wsjava {
         return this;
       }
       /**
-       * <code>string stringData = 5;</code>
+       * <code>string stringData = 4;</code>
        * @param value The bytes for stringData to set.
        * @return This builder for chaining.
        */
@@ -1315,7 +1324,7 @@ public final class Wsjava {
 
       private java.lang.Object log_ = "";
       /**
-       * <code>string log = 6;</code>
+       * <code>string log = 5;</code>
        * @return The log.
        */
       public java.lang.String getLog() {
@@ -1331,7 +1340,7 @@ public final class Wsjava {
         }
       }
       /**
-       * <code>string log = 6;</code>
+       * <code>string log = 5;</code>
        * @return The bytes for log.
        */
       public com.google.protobuf.ByteString
@@ -1348,7 +1357,7 @@ public final class Wsjava {
         }
       }
       /**
-       * <code>string log = 6;</code>
+       * <code>string log = 5;</code>
        * @param value The log to set.
        * @return This builder for chaining.
        */
@@ -1361,7 +1370,7 @@ public final class Wsjava {
         return this;
       }
       /**
-       * <code>string log = 6;</code>
+       * <code>string log = 5;</code>
        * @return This builder for chaining.
        */
       public Builder clearLog() {
@@ -1371,7 +1380,7 @@ public final class Wsjava {
         return this;
       }
       /**
-       * <code>string log = 6;</code>
+       * <code>string log = 5;</code>
        * @param value The bytes for log to set.
        * @return This builder for chaining.
        */
@@ -1387,7 +1396,7 @@ public final class Wsjava {
 
       private java.lang.Object timeStamp_ = "";
       /**
-       * <code>string timeStamp = 7;</code>
+       * <code>string timeStamp = 6;</code>
        * @return The timeStamp.
        */
       public java.lang.String getTimeStamp() {
@@ -1403,7 +1412,7 @@ public final class Wsjava {
         }
       }
       /**
-       * <code>string timeStamp = 7;</code>
+       * <code>string timeStamp = 6;</code>
        * @return The bytes for timeStamp.
        */
       public com.google.protobuf.ByteString
@@ -1420,7 +1429,7 @@ public final class Wsjava {
         }
       }
       /**
-       * <code>string timeStamp = 7;</code>
+       * <code>string timeStamp = 6;</code>
        * @param value The timeStamp to set.
        * @return This builder for chaining.
        */
@@ -1433,7 +1442,7 @@ public final class Wsjava {
         return this;
       }
       /**
-       * <code>string timeStamp = 7;</code>
+       * <code>string timeStamp = 6;</code>
        * @return This builder for chaining.
        */
       public Builder clearTimeStamp() {
@@ -1443,7 +1452,7 @@ public final class Wsjava {
         return this;
       }
       /**
-       * <code>string timeStamp = 7;</code>
+       * <code>string timeStamp = 6;</code>
        * @param value The bytes for timeStamp to set.
        * @return This builder for chaining.
        */
@@ -2394,13 +2403,14 @@ public final class Wsjava {
       "proto\022\026wsjava.signaling.pbsws\"\315\001\n\rMessag" +
       "eObject\0222\n\010dataType\030\001 \001(\0162 .wsjava.signa" +
       "ling.pbsws.DataType\022\020\n\010listData\030\002 \003(\t\022B\n" +
-      "\020stringDataObject\030\004 \001(\0132(.wsjava.signali" +
+      "\020stringDataObject\030\003 \001(\0132(.wsjava.signali" +
       "ng.pbsws.StringDataObject\022\022\n\nstringData\030" +
-      "\005 \001(\t\022\013\n\003log\030\006 \001(\t\022\021\n\ttimeStamp\030\007 \001(\t\";\n" +
+      "\004 \001(\t\022\013\n\003log\030\005 \001(\t\022\021\n\ttimeStamp\030\006 \001(\t\";\n" +
       "\020StringDataObject\022\014\n\004from\030\001 \001(\t\022\n\n\002to\030\002 " +
-      "\001(\t\022\r\n\005offer\030\003 \001(\t*V\n\010DataType\022\013\n\007LocalI" +
-      "d\020\000\022\t\n\005Peers\020\001\022\t\n\005Offer\020\002\022\n\n\006Answer\020\003\022\020\n" +
-      "\014IceCandidate\020\004\022\t\n\005Error\020\005b\006proto3"
+      "\001(\t\022\r\n\005offer\030\003 \001(\t*c\n\010DataType\022\013\n\007Defaul" +
+      "t\020\000\022\013\n\007LocalId\020\001\022\t\n\005Peers\020\002\022\t\n\005Offer\020\003\022\n" +
+      "\n\006Answer\020\004\022\020\n\014IceCandidate\020\005\022\t\n\005Error\020\006b" +
+      "\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

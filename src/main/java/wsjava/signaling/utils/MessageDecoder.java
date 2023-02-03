@@ -28,7 +28,6 @@ public class MessageDecoder implements Decoder.Binary<Wsjava.MessageObject>{
 
   @Override
   public MessageObject decode(ByteBuffer bytes) throws DecodeException {
-    System.out.println("decoding...");
     MessageObject mso = MessageObject.getDefaultInstance();
     try {
       mso = Wsjava.MessageObject.parseFrom(bytes);
@@ -40,7 +39,6 @@ public class MessageDecoder implements Decoder.Binary<Wsjava.MessageObject>{
 
   @Override
   public boolean willDecode(ByteBuffer bytes) {
-    System.out.println("will decode...");
-    return false;
+    return true;
   }
 }

@@ -6,6 +6,8 @@ import javax.websocket.EncodeException;
 import javax.websocket.Encoder;
 import javax.websocket.EndpointConfig;
 
+import com.google.protobuf.InvalidProtocolBufferException;
+
 // import com.google.gson.Gson;
 // import com.google.gson.GsonBuilder;
 
@@ -27,7 +29,6 @@ public class MessageEncoder implements Encoder.Binary<Wsjava.MessageObject> {
 
   @Override
   public ByteBuffer encode(MessageObject mso) throws EncodeException {
-    System.out.println("encoding...");
     byte[] bytes = mso.toByteArray();
     ByteBuffer buffer = ByteBuffer.wrap(bytes);
     return buffer;

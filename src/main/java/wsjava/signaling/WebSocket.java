@@ -49,7 +49,7 @@ public class WebSocket {
 
   private void handleSDP(DataType dataType, StringDataObject offerObject) {
     Session destinationSession = WebSocket.peerSessions.findById(offerObject.getTo());
-    String log = String.format("%1$s received from peer ID: %2$s", dataType.toString(), offerObject.getFrom());
+    String log = String.format("%1$s received from peer ID: %2$s", dataType, offerObject.getFrom());
     this.send(dataType, offerObject, log, destinationSession);
     System.out.println(String.format("Sent an SDP to %s", destinationSession.getId()));
   }
