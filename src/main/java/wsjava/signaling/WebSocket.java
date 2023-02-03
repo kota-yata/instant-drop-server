@@ -5,14 +5,13 @@ import java.util.ArrayList;
 
 import javax.websocket.server.ServerEndpoint;
 
-import com.google.gson.Gson;
+// import com.google.gson.Gson;
 
 import org.springframework.stereotype.Component;
 
-import wsjava.signaling.types.MessageObject;
-import wsjava.signaling.types.StringDataObject;
-import wsjava.signaling.types.SessionList;
-import wsjava.signaling.types.DataType;
+import wsjava.signaling.pbsws.Wsjava.DataType;
+import wsjava.signaling.pbsws.Wsjava.MessageObject;
+import wsjava.signaling.pbsws.Wsjava.StringDataObject;
 import wsjava.signaling.utils.CurrentTime;
 import wsjava.signaling.utils.MessageDecoder;
 import wsjava.signaling.utils.MessageEncoder;
@@ -32,7 +31,6 @@ import javax.websocket.Session;
 public class WebSocket {
   public static SessionList peerSessions = new SessionList();
   public static ArrayList<String> peerIds = new ArrayList<>();
-  private static Gson gson = new Gson();
 
   @OnOpen
   public void OnOpen(Session session) {
@@ -43,17 +41,16 @@ public class WebSocket {
   }
 
   @OnMessage
-  public void OnMessage(String txt, Session session){
+  public void OnMessage(MessageObject mso, Session session){
     System.out.println(String.format("Text message received from peer ID: %s", session.getId()));
-    MessageObject messageObject = gson.fromJson(txt, MessageObject.class);
-    StringDataObject offerObject = gson.fromJson(messageObject.stringData, StringDataObject.class);
-    this.handleSDP(messageObject.dataType, offerObject, messageObject.stringData);
+    StringDataObject ofo = mso.getStringDataObject();
+    this.handleSDP(mso.getDataType(), ofo);
   }
 
-  private void handleSDP(DataType dataType, StringDataObject offerObject, String stringified) {
-    Session destinationSession = WebSocket.peerSessions.findById(offerObject.to);
-    String log = String.format("%1$s received from peer ID: %2$s", dataType.toString(), offerObject.from);
-    this.send(dataType, stringified, log, destinationSession);
+  private void handleSDP(DataType dataType, StringDataObject offerObject) {
+    Session destinationSession = WebSocket.peerSessions.findById(offerObject.getTo());
+    String log = String.format("%1$s received from peer ID: %2$s", dataType, offerObject.getFrom());
+    this.send(dataType, offerObject, log, destinationSession);
     System.out.println(String.format("Sent an SDP to %s", destinationSession.getId()));
   }
 
@@ -64,10 +61,10 @@ public class WebSocket {
     this.broadcast(DataType.Peers, peerIds);
   }
 
-  public void broadcast(DataType dataType, String txt) {
-    String broadcastLog = String.format("String data broadcasted: ", txt);
+  public void broadcast(DataType dataType, StringDataObject sdo) {
+    String broadcastLog = String.format("StringDataObject broadcasted");
     for (Session s: WebSocket.peerSessions) {
-      this.send(dataType, txt, broadcastLog, s);
+      this.send(dataType, sdo, broadcastLog, s);
     }
   }
   public void broadcast(DataType dataType, ArrayList<String> list) {
@@ -77,11 +74,13 @@ public class WebSocket {
     }
   }
 
-  public void send(DataType dataType, String txt, String log, Session session) {
+  public void send(DataType dataType, StringDataObject sdo, String log, Session session) {
     try {
       String timeStamp = CurrentTime.get();
-      MessageObject res = new MessageObject(dataType, txt, log, timeStamp);
-      session.getBasicRemote().sendObject(res);
+      MessageObject.Builder msoBuilder = MessageObject.newBuilder();
+      msoBuilder.setDataType(dataType).setStringDataObject(sdo).setLog(log).setTimeStamp(timeStamp);
+      MessageObject mso = msoBuilder.build();
+      session.getBasicRemote().sendObject(mso);
     } catch (IOException | EncodeException err) {
       err.printStackTrace();
     }
@@ -89,8 +88,21 @@ public class WebSocket {
   public void send(DataType dataType, ArrayList<String> peers, String log, Session session) {
     try {
       String timeStamp = CurrentTime.get();
-      MessageObject res = new MessageObject(dataType, peers, log, timeStamp);
-      session.getBasicRemote().sendObject(res);
+      MessageObject.Builder msoBuilder = MessageObject.newBuilder();
+      msoBuilder.setDataType(dataType).addAllListData(peers).setLog(log).setTimeStamp(timeStamp);
+      MessageObject mso = msoBuilder.build();
+      session.getBasicRemote().sendObject(mso);
+    } catch (IOException | EncodeException err) {
+      err.printStackTrace();
+    }
+  }
+  public void send(DataType dataType, String stringData, String log, Session session) {
+    try {
+      String timeStamp = CurrentTime.get();
+      MessageObject.Builder msoBuilder = MessageObject.newBuilder();
+      msoBuilder.setDataType(dataType).setStringData(stringData).setLog(log).setTimeStamp(timeStamp);
+      MessageObject mso = msoBuilder.build();
+      session.getBasicRemote().sendObject(mso);
     } catch (IOException | EncodeException err) {
       err.printStackTrace();
     }
