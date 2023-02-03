@@ -1,28 +1,20 @@
 package wsjava.signaling.utils;
 
+import java.nio.ByteBuffer;
+
 import javax.websocket.DecodeException;
 import javax.websocket.Decoder;
 import javax.websocket.EndpointConfig;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+// import com.google.gson.Gson;
+// import com.google.gson.GsonBuilder;
+import com.google.protobuf.InvalidProtocolBufferException;
+import wsjava.signaling.pbsws.Wsjava;
+import wsjava.signaling.pbsws.Wsjava.MessageObject;
 
-import wsjava.signaling.MessageObject;
-import wsjava.signaling.adapters.MessageObjectTypeAdapter;
-
-public class MessageDecoder implements Decoder.Text<MessageObject>{
-  final GsonBuilder gsonBuilder = new GsonBuilder().registerTypeAdapter(MessageObject.class, new MessageObjectTypeAdapter()).setPrettyPrinting();
-  final Gson gson = gsonBuilder.create();
-
-  @Override
-  public MessageObject decode(String s) throws DecodeException {
-    return this.gson.fromJson(s, MessageObject.class);
-  }
-
-  @Override
-  public boolean willDecode(String s) {
-      return (s != null);
-  }
+public class MessageDecoder implements Decoder.Binary<Wsjava.MessageObject>{
+  // final GsonBuilder gsonBuilder = new GsonBuilder().registerTypeAdapter(MessageObject.class, new MessageObjectTypeAdapter()).setPrettyPrinting();
+  // final Gson gson = gsonBuilder.create();
 
   @Override
   public void init(EndpointConfig endpointConfig) {
@@ -32,5 +24,23 @@ public class MessageDecoder implements Decoder.Text<MessageObject>{
   @Override
   public void destroy() {
       // Close resources
+  }
+
+  @Override
+  public MessageObject decode(ByteBuffer bytes) throws DecodeException {
+    System.out.println("decoding...");
+    MessageObject mso = MessageObject.getDefaultInstance();
+    try {
+      mso = Wsjava.MessageObject.parseFrom(bytes);
+    } catch (InvalidProtocolBufferException e) {
+      e.printStackTrace();
+    }
+    return mso;
+  }
+
+  @Override
+  public boolean willDecode(ByteBuffer bytes) {
+    System.out.println("will decode...");
+    return false;
   }
 }

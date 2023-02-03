@@ -3,22 +3,18 @@ package wsjava.signaling;
 import java.io.IOException;
 import java.util.ArrayList;
 
-// import javax.websocket.server.ServerEndpoint;
-
-// import org.springframework.http.codec.protobuf.ProtobufDecoder;
-// import org.springframework.http.codec.protobuf.ProtobufEncoder;
+import javax.websocket.server.ServerEndpoint;
 
 // import com.google.gson.Gson;
 
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import wsjava.signaling.pbsws.Wsjava.DataType;
 import wsjava.signaling.pbsws.Wsjava.MessageObject;
 import wsjava.signaling.pbsws.Wsjava.StringDataObject;
 import wsjava.signaling.utils.CurrentTime;
-// import wsjava.signaling.utils.MessageDecoder;
-// import wsjava.signaling.utils.MessageEncoder;
+import wsjava.signaling.utils.MessageDecoder;
+import wsjava.signaling.utils.MessageEncoder;
 
 import javax.websocket.OnOpen;
 import javax.websocket.OnMessage;
@@ -26,13 +22,12 @@ import javax.websocket.EncodeException;
 import javax.websocket.OnClose;
 import javax.websocket.Session;
 
-// @ServerEndpoint(
-//   value = "/ws",
-//   encoders = ProtobufEncoder.class,
-//   decoders = ProtobufDecoder.class
-// )
 @Component
-@RequestMapping("/ws")
+@ServerEndpoint(
+  value = "/ws",
+  decoders = MessageDecoder.class, 
+  encoders = MessageEncoder.class
+)
 public class WebSocket {
   public static SessionList peerSessions = new SessionList();
   public static ArrayList<String> peerIds = new ArrayList<>();
